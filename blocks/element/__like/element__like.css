@@ -1,6 +1,8 @@
 .element__like {
     opacity: 1;
-    transition: all .3s ease;
+    transition: all .3s ease;    
+    flex-shrink: 0;
+    margin: 0 0 0 10px;
 }
 
 .element__like:hover {
