@@ -7,3 +7,10 @@
     line-height: 1;
     color: #FFFFFF;
 }
+
+@media screen and (max-width: 768px) {
+    .profile__about-me {
+        font-size: 14px;
+        text-align: center;
+    }
+}

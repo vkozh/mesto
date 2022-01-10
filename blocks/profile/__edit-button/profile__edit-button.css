@@ -10,9 +10,19 @@
     vertical-align: middle;
     box-sizing: border-box;
     opacity: 1;
-    transition: all .3s ease;
+    transition: opacity .3s ease;
 }
 
 .profile__edit-button:hover {
     opacity: 0.6;
+}
+
+@media screen and (max-width: 768px) {
+    .profile__edit-button {
+        position: absolute;
+        top: 0;
+        transform: translate(0, 30%);
+        width: 18px;
+        height: 18px;
+    }
 }

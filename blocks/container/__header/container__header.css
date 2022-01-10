@@ -1,3 +1,9 @@
 .container__header {
     margin-top: 45px;
 }
+
+@media screen and (max-width: 991px) {
+    .container__header {
+        margin: 28px 27px 0;
+    }
+}
