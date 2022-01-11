@@ -21,5 +21,7 @@
         transform: translate(0, 30%);
         width: 18px;
         height: 18px;
+        top: 0;
+        right: -28px; /* 18 + 10 */
     }
 }
