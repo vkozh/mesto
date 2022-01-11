@@ -24,7 +24,7 @@
                 <div class="profile__info-wrapper">
                     <img class="profile__avatar" src="./images/Avatar.png">
                     <div class="profile__info">
-                        <h1 class="profile__name"><span>Жак-Ив Кусто</span><a href="#" class="profile__edit-button">
+                        <h1 class="profile__name"><span class="profile__name-text">Жак-Ив Кусто</span><a href="#" class="profile__edit-button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none">
                                     <path
                                         d="M10 1.32827 2.60377 8.7666 1.28302 7.41936 8.66038 0 10 1.32827ZM0 10l1.96226-.58823L.584906 8.08349 0 10Z"
@@ -134,7 +134,7 @@
                 </div>
             </section>
 
-            <section class="popup popup_opened">
+            <section class="popup">
                 <div class="popup__container">
                     <form class="popup__form">
                         <svg class="popup__icon-close" viewBox="0 0 32 32" fill="none"
@@ -144,8 +144,8 @@
                                 fill="#fff" />
                         </svg>
                         <h2 class="popup__title">Редактировать профиль</h2>
-                        <input class="popup__input" type="text" placeholder="Имя">
-                        <input class="popup__input" type="text" placeholder="О себе">
+                        <input class="popup__input popup__input_type_name" type="text" placeholder="Имя">
+                        <input class="popup__input popup__input_type_job" type="text" placeholder="О себе">
                         <button class="popup__submit-button" type="submit">Сохранить</button>
                     </form>
                 </div>
