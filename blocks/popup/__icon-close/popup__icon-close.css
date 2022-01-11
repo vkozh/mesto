@@ -5,6 +5,12 @@
     width: 32px;
     height: 32px;
     transition: opacity .3s ease;
+
+    display: inline-flex;
+    background-image: url("../../../images/Close\ Icon.svg");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: contain;
 }
 
 .popup__icon-close:hover {

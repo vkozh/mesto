@@ -35,7 +35,6 @@ function formSubmitHandler(evt) {
 
     let nameInputValue = nameInput.value;
     let jobInputValue = jobInput.value;
-    // Выберите элементы, куда должны быть вставлены значения полей
 
     // Вставьте новые значения с помощью textContent
     profileName.textContent = nameInputValue;
@@ -46,7 +45,7 @@ function formSubmitHandler(evt) {
 // Прикрепляем обработчик к форме
 formElement.addEventListener('submit', formSubmitHandler);
 
-//клик по сердечку
+// Клик по сердечку
 let likes = document.querySelectorAll('.element__like');
 likes.forEach((like) => {
     like.addEventListener('click', ()=>{

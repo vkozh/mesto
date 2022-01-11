@@ -3,6 +3,14 @@
     transition: all .3s ease;    
     flex-shrink: 0;
     margin: 0 0 0 10px;
+    width: 22px;
+    height: 19px;
+
+    display: inline-flex;
+    background-image: url("../../../images/like.svg");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: contain;
 }
 
 .element__like:hover {
