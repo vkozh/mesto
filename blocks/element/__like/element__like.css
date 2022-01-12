@@ -5,10 +5,12 @@
     margin: 0 0 0 10px;
     width: 22px;
     height: 19px;
-    background-image: url("../../../images/like.svg");
+    background-image: url(../../../images/like.svg);
     background-repeat: no-repeat;
     background-position: 0 0;
     background-size: contain;
+    background-color: #fff;
+    border: none;
 }
 
 .element__like:hover {
