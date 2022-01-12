@@ -1,13 +1,12 @@
 .profile__name {
-    position: relative;
     margin: 0 0 16px;
-    font-size: 0;
+    display: flex;
+    align-items: baseline;
     word-break: break-word;
 }
 
 @media screen and (max-width: 768px) {
     .profile__name {
         margin: 26px 0 14px;
-        text-align: center;
     }
 }

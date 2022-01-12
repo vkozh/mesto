@@ -1,4 +1,5 @@
 .profile__about-me {
+    width: 100%;
     margin: 0;
     font-family: Inter, Arial, Helvetica, sans-serif;
     font-style: normal;
@@ -6,7 +7,7 @@
     font-size: 18px;
     line-height: 1;
     word-break: break-word;
-    color: #FFFFFF;
+    color: #fff;
 }
 
 @media screen and (max-width: 768px) {

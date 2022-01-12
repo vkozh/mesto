@@ -7,7 +7,7 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 22px 22px;
-    opacity: 1;
+    background-color: #000;
     transition: opacity .3s ease;
 }
 

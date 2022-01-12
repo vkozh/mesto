@@ -5,8 +5,6 @@
     margin: 0 0 0 10px;
     width: 22px;
     height: 19px;
-
-    display: inline-flex;
     background-image: url("../../../images/like.svg");
     background-repeat: no-repeat;
     background-position: 0 0;
