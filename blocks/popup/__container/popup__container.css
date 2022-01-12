@@ -2,8 +2,8 @@
     position: relative;
     margin: auto;
     padding: 35px;
-    width: 430px;
-    height: 330px;
+    max-width: 430px;
+    max-height: 330px;
     background-color: #fff;
     border-radius: 10px;
     display: flex;
