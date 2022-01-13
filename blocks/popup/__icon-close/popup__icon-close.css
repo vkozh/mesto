@@ -5,11 +5,11 @@
     width: 32px;
     height: 32px;
     transition: opacity .3s ease;
-    background-image: url(../../../images/Close\ Icon.svg);
+    background-image: url(../../../images/CloseIcon.svg);
     background-repeat: no-repeat;
     background-position: 0 0;
     background-size: contain;
-    background-color: #000;
+    background-color: rgba(00, 00, 00, 0);
     border: none;
 }
 

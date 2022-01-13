@@ -1,12 +1,5 @@
 .header__logo {
-    display: inline-block;
     margin-bottom: 41px;
-    background-image: url(../../../images/logo.svg);
-    width: 142px;
-    height: 33px;
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    background-size: contain;
 }
 
 @media screen and (max-width: 768px) {

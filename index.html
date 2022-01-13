@@ -12,83 +12,86 @@
 <body class="body">
     <div class="container">
         <header class="header container__header">
-            <span class="header__logo"></span>
+            <img class="header__logo" src="images/logo.svg" alt="Логотип">
         </header>
 
         <main>
             <section class="profile container__profile">
-                <div class="profile__info-wrapper">
-                    <img class="profile__avatar" src="./images/Avatar.png" alt="Аватарка">
-                    <div class="profile__info">
-                        <div class="profile__name"><h1 class="profile__name-text">Жак-Ив Кусто</h1>
-                            <button class="profile__edit-button" type = "button"></button>
-                        </div>
-                        <p class="profile__about-me">Исследователь океана</p>
+                <!--div class="profile__info-wrapper"-->
+                <img class="profile__avatar" src="./images/Avatar.png" alt="Аватарка">
+                <div class="profile__info">
+                    <div class="profile__name">
+                        <h1 class="profile__name-text">Жак-Ив Кусто</h1>
+                        <button class="profile__edit-button" type="button" area-label="Редактировать"></button>
                     </div>
+                    <p class="profile__about-me">Исследователь океана</p>
                 </div>
-                <button class="profile__add-button" type = "button"></button>
+                <!--/div-->
+                <button class="profile__add-button" type="button" area-label="Добавить"></button>
             </section>
 
             <section class="elements container__elements">
-                <div class="element">
+                <article class="element">
                     <img class="element__img" src="images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаевск">
                     <div class="element__info">
                         <h2 class="element__title">Карачаевск</h2>
-                        <button class="element__like"></button>
+                        <button class="element__like" type="button" area-label="Нравится"></button>
                     </div>
-                </div>
-                <div class="element">
+                </article>
+                <article class="element">
                     <img class="element__img" src="images/kirill-pershin-1404681-unsplash.jpg" alt="Гора Эльбрус">
                     <div class="element__info">
                         <h2 class="element__title">Гора Эльбрус</h2>
-                        <button class="element__like"></button>
+                        <button class="element__like" type="button" area-label="Нравится"></button>
                     </div>
-                </div>
-                <div class="element">
+                </article>
+                <article class="element">
                     <img class="element__img" src="images/kirill-pershin-1556355-unsplash.jpg" alt="Домбай">
                     <div class="element__info">
                         <h2 class="element__title">Домбай</h2>
-                        <button class="element__like"></button>
+                        <button class="element__like" type="button" area-label="Нравится"></button>
                     </div>
-                </div>
-                <div class="element">
+                </article>
+                <article class="element">
                     <img class="element__img" src="images/kirill-pershin-1404681-unsplash.jpg" alt="Гора Эльбрус">
                     <div class="element__info">
                         <h2 class="element__title">Гора Эльбрус</h2>
-                        <button class="element__like"></button>
+                        <button class="element__like" type="button" area-label="Нравится"></button>
                     </div>
-                </div>
-                <div class="element">
+                </article>
+                <article class="element">
                     <img class="element__img" src="images/kirill-pershin-1556355-unsplash.jpg" alt="Домбай">
                     <div class="element__info">
                         <h2 class="element__title">Домбай</h2>
-                        <button class="element__like"></button>
+                        <button class="element__like" type="button" area-label="Нравится"></button>
                     </div>
-                </div>
-                <div class="element">
+                </article>
+                <article class="element">
                     <img class="element__img" src="images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаевск">
                     <div class="element__info">
                         <h2 class="element__title">Карачаево-Черкессия</h2>
-                        <button class="element__like element__like_active"></button>
+                        <button class="element__like" type="button" area-label="Нравится"></button>
                     </div>
-                </div>
+                </article>
             </section>
 
-            <section class="popup">
+            <div class="popup">
                 <div class="popup__container">
-                    <form class="popup__form">
-                        <button class="popup__icon-close" type="button"></button>
-                        <h2 class="popup__title">Редактировать профиль</h2>
-                        <input class="popup__input popup__input_type_name" type="text" placeholder="Имя">
-                        <input class="popup__input popup__input_type_job" type="text" placeholder="О себе">
+                    <button class="popup__icon-close" type="button" area-label="Закрыть"></button>
+                    <h2 class="popup__title">Редактировать профиль</h2>
+                    <form class="popup__form" name="popupForm">
+                        <input class="popup__input popup__input_type_name" type="text" placeholder="Имя"
+                            name="inputName">
+                        <input class="popup__input popup__input_type_job" type="text" placeholder="О себе"
+                            name="inputJob">
                         <button class="popup__submit-button" type="submit">Сохранить</button>
                     </form>
                 </div>
-            </section>
+            </div>
         </main>
 
         <footer class="footer container__footer">
-            <p class="footer__text">&#169; 2022 Mesto Russia</p>
+            <p class="footer__text">&copy; 2022 Mesto Russia</p>
         </footer>
     </div>
     <script src="./scripts/index.js"></script>

@@ -2,11 +2,11 @@
     margin: 0 0 16px;
     display: flex;
     align-items: baseline;
-    word-break: break-word;
 }
 
 @media screen and (max-width: 768px) {
     .profile__name {
         margin: 26px 0 14px;
+        justify-content: center;
     }
 }

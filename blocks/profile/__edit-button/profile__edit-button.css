@@ -1,11 +1,11 @@
 .profile__edit-button {
     min-width: 24px;
     height: 24px;
-    background-image: url(../../../images/Edit\ Button.svg);
+    background-image: url(../../../images/EditButton.svg);
     background-repeat: no-repeat;
     background-position: 0 0;
     background-size: contain;
-    background-color: #000;
+    background-color: rgba(0, 0, 0, 0);
     border: none;
     transition: opacity .3s ease;
 }
