@@ -8,7 +8,7 @@
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
-    line-height: 1.2;
+    line-height: 1.22;
     text-align: center;
     color: #fff;
     transition: opacity .3s ease;
@@ -23,6 +23,6 @@
     .popup__submit-button {
         height: 46px;
         font-size: 14px;
-        line-height: 1.2;
+        line-height: 1.21;
     }
 }
