@@ -1,4 +1,7 @@
 .element {
+    position: relative;
     font-size: 0;
-    max-width: 282px;
+    width: 282px;
+    height: 360px;
+    cursor: pointer;
 }

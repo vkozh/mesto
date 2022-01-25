@@ -29,7 +29,7 @@
             </section>
 
             <section class="elements container__elements">
-                <article class="element">
+                <!--article class="element">
                     <img class="element__img" src="images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаевск">
                     <div class="element__info">
                         <h2 class="element__title">Карачаевск</h2>
@@ -70,10 +70,10 @@
                         <h2 class="element__title">Карачаево-Черкессия</h2>
                         <button class="element__like" type="button" ></button>
                     </div>
-                </article>
+                </article-->
             </section>
 
-            <div class="popup">
+            <div class="popup popup_type_edit-profile">
                 <div class="popup__container">
                     <button class="popup__icon-close" type="button" ></button>
                     <h2 class="popup__title">Редактировать профиль</h2>
@@ -86,12 +86,39 @@
                     </form>
                 </div>
             </div>
+
+            <div class="popup popup_type_add-card">
+                <div class="popup__container">
+                    <button class="popup__icon-close" type="button" ></button>
+                    <h2 class="popup__title">Новое место</h2>
+                    <form class="popup__form" name="popupForm">
+                        <input class="popup__input popup__input_type_title" type="text" placeholder="Название"
+                            name="inputName">
+                        <input class="popup__input popup__input_type_link" type="text" placeholder="Ссылка на картинку"
+                            name="inputJob">
+                        <button class="popup__submit-button" type="submit">Создать</button>
+                    </form>
+                </div>
+            </div>
+            
         </main>
 
         <footer class="footer container__footer">
             <p class="footer__text">&copy; 2022 Mesto Russia</p>
         </footer>
     </div>
+
+    <template id="card">
+        <article class="element">
+            <button class="element__trash" type="button"></button>
+            <img class="element__img" src="" alt="">
+            <div class="element__info">
+                <h2 class="element__title"></h2>
+                <button class="element__like" type="button"></button>
+            </div>
+        </article>
+    </template>
+
     <script src="./scripts/index.js"></script>
 </body>
 
