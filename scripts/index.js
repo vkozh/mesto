@@ -107,13 +107,15 @@ function formAddSubmitHandler(evt) {
     evt.preventDefault();
 
     // Вставьте новые значения с помощью textContent
-    let newCard = {
-        name: titleInput.value,
-        link: linkInput.value
-    };
+    if((linkInput.value !== '') && (titleInput.value !== '')){
+      let newCard = {
+          name: titleInput.value,
+          link: linkInput.value
+      };
 
-    createCard(newCard);
-    closeAddPopup();
+      createCard(newCard);
+      closeAddPopup();
+    }
 }
 
 // Прикрепляем обработчик к формам
