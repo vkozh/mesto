@@ -1,12 +1,11 @@
-.popup {
+.popup-full-img {
     display: flex;
-    opacity: 0;
-    visibility: hidden;
+    position: relative;
     width: 100%; 
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, .5);
-    transition: visibility 0s linear .3s, opacity .3s linear;
+    transition: all .3s linear 0s;
 }

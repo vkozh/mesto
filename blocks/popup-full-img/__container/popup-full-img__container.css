@@ -1,0 +1,12 @@
+.popup-full-img__container {
+    position: relative;
+    margin: auto;
+    padding: 0;
+    width: auto;
+    max-width: 75vw;
+    max-height: 75vh;
+    border-radius: 10px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+    background: none;
+}
