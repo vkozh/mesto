@@ -28,64 +28,19 @@
                 <button class="profile__add-button" type="button"></button>
             </section>
 
-<<<<<<< Updated upstream
-            <section class="elements container__elements">
-                <!--article class="element">
-                    <img class="element__img" src="images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаевск">
-                    <div class="element__info">
-                        <h2 class="element__title">Карачаевск</h2>
-                        <button class="element__like" type="button"></button>
-                    </div>
-                </article>
-                <article class="element">
-                    <img class="element__img" src="images/kirill-pershin-1404681-unsplash.jpg" alt="Гора Эльбрус">
-                    <div class="element__info">
-                        <h2 class="element__title">Гора Эльбрус</h2>
-                        <button class="element__like" type="button" ></button>
-                    </div>
-                </article>
-                <article class="element">
-                    <img class="element__img" src="images/kirill-pershin-1556355-unsplash.jpg" alt="Домбай">
-                    <div class="element__info">
-                        <h2 class="element__title">Домбай</h2>
-                        <button class="element__like" type="button" ></button>
-                    </div>
-                </article>
-                <article class="element">
-                    <img class="element__img" src="images/kirill-pershin-1404681-unsplash.jpg" alt="Гора Эльбрус">
-                    <div class="element__info">
-                        <h2 class="element__title">Гора Эльбрус</h2>
-                        <button class="element__like" type="button" ></button>
-                    </div>
-                </article>
-                <article class="element">
-                    <img class="element__img" src="images/kirill-pershin-1556355-unsplash.jpg" alt="Домбай">
-                    <div class="element__info">
-                        <h2 class="element__title">Домбай</h2>
-                        <button class="element__like" type="button" ></button>
-                    </div>
-                </article>
-                <article class="element">
-                    <img class="element__img" src="images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаевск">
-                    <div class="element__info">
-                        <h2 class="element__title">Карачаево-Черкессия</h2>
-                        <button class="element__like" type="button" ></button>
-                    </div>
-                </article-->
-            </section>
-=======
             <section class="elements container__elements"></section>
->>>>>>> Stashed changes
 
             <div class="popup popup_type_edit-profile">
                 <div class="popup__container">
                     <button class="popup__icon-close" type="button"></button>
                     <h2 class="popup__title">Редактировать профиль</h2>
-                    <form class="popup__form" name="popupForm">
-                        <input class="popup__input popup__input_type_name" type="text" placeholder="Имя"
-                            name="inputName">
-                        <input class="popup__input popup__input_type_job" type="text" placeholder="О себе"
-                            name="inputJob">
+                    <form class="popup__form" name="popupForm" novalidate>
+                        <input id="name-input" class="popup__input popup__input_type_name" type="text" placeholder="Имя"
+                            name="inputName" minlength="2" maxlength="40" required>
+                        <span class="popup__input-error name-input-error"></span>
+                        <input id="job-input" class="popup__input popup__input_type_job" type="text" placeholder="О себе"
+                            name="inputJob" minlength="2" maxlength="200" required>
+                        <span class="popup__input-error job-input-error"></span>
                         <button class="popup__submit-button" type="submit">Сохранить</button>
                     </form>
                 </div>
@@ -95,11 +50,13 @@
                 <div class="popup__container">
                     <button class="popup__icon-close" type="button"></button>
                     <h2 class="popup__title">Новое место</h2>
-                    <form class="popup__form" name="popupForm">
-                        <input class="popup__input popup__input_type_title" type="text" placeholder="Название"
-                            name="inputName">
-                        <input class="popup__input popup__input_type_link" type="text" placeholder="Ссылка на картинку"
-                            name="inputJob">
+                    <form class="popup__form" name="popupForm" novalidate>
+                        <input id="title-input" class="popup__input popup__input_type_title" type="text" placeholder="Название"
+                            name="inputName" minlength="2" maxlength="30" required>
+                        <span class="popup__input-error title-input-error"></span>
+                        <input id="link-input" class="popup__input popup__input_type_link" type="url" placeholder="Ссылка на картинку"
+                            name="inputJob" required>
+                        <span class="popup__input-error link-input-error"></span>
                         <button class="popup__submit-button" type="submit">Создать</button>
                     </form>
                 </div>
@@ -134,6 +91,7 @@
     </template>
 
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
 </body>
 
 </html>

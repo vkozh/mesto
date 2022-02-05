@@ -1,29 +1,28 @@
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ]; 
+const initialCards = [{
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
 
 //карточки  
 const elements = document.querySelector('.elements');
@@ -33,6 +32,7 @@ const container = document.querySelector('.container');
 const profileName = document.querySelector('.profile__name-text');
 const profileJob = document.querySelector('.profile__about-me');
 // Попапы
+const popupList = Array.from(document.querySelectorAll('.popup'));
 const editPopup = document.querySelector('.popup_type_edit-profile');
 const addPopup = document.querySelector('.popup_type_add-card');
 const imgPopup = document.querySelector('.popup-full-img');
@@ -40,8 +40,8 @@ const imgPopup = document.querySelector('.popup-full-img');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 const closeEditPopupButton = editPopup.querySelector('.popup__icon-close');
-const closeAddPopupButton = addPopup.querySelector('.popup__icon-close'); 
-const closeFullImgPopupButton = imgPopup.querySelector('.popup__icon-close'); 
+const closeAddPopupButton = addPopup.querySelector('.popup__icon-close');
+const closeFullImgPopupButton = imgPopup.querySelector('.popup__icon-close');
 // Формы
 const editElementForm = editPopup.querySelector('.popup__form');
 const addElementForm = addPopup.querySelector('.popup__form');
@@ -63,6 +63,11 @@ function openPopup(popup) {
 //закрыть попап
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+}
+//закрыть на оверлее
+function closeOnOverlay(e, popup) {
+  if (e.target === e.currentTarget)
+    closePopup(popup);
 }
 
 //создать карточку
@@ -96,51 +101,85 @@ function openImg(e) {
 }
 
 function deleteCard(e) {
-  e.target.closest('.element').remove();  
+  e.target.closest('.element').remove();
 }
 
 // Обработчик формы редактирования профиля
 function handleFormEditSubmit(e) {
-    e.preventDefault();
-    profileName.textContent = nameInput.value;
-    profileJob.textContent = jobInput.value;
-    closePopup(editPopup);
+  e.preventDefault();
+  profileName.textContent = nameInput.value;
+  profileJob.textContent = jobInput.value;
+  closePopup(editPopup);
 }
 
 function handleFormAddSubmit(e) {
-    e.preventDefault();
-    if((linkInput.value !== '') && (titleInput.value !== '')){
-      elements.prepend(createCard(titleInput.value, linkInput.value));
-      closePopup(addPopup);
-    }
+  e.preventDefault();
+  if ((linkInput.value !== '') && (titleInput.value !== '')) {
+    elements.prepend(createCard(titleInput.value, linkInput.value));
+    closePopup(addPopup);
+  }
 }
 
 // Прикрепляем обработчики к формам
 editElementForm.addEventListener('submit', handleFormEditSubmit);
 addElementForm.addEventListener('submit', handleFormAddSubmit);
 // Вешаем обработчики на клики
-editButton.addEventListener('click', openEditPopup); 
+editButton.addEventListener('click', openEditPopup);
 addButton.addEventListener('click', openAddPopup);
-closeEditPopupButton.addEventListener('click',closeEditPopup);
+closeEditPopupButton.addEventListener('click', closeEditPopup);
 closeAddPopupButton.addEventListener('click', closeAddPopup);
 closeFullImgPopupButton.addEventListener('click', closeFullImgPopup);
+//закрыть по клику на оверлей
+addPopup.addEventListener('click', closeAddPopupOnOverlay);
+editPopup.addEventListener('click', closeEditPopupOnOverlay);
+imgPopup.addEventListener('click', closeFullImgPopupOnOverlay);
+//закрыть попап на esc
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    if (openedPopup)
+      closePopup(openedPopup);
+  }
+})
 
 function openEditPopup() {
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileJob.textContent;
-    openPopup(editPopup);
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
+  openPopup(editPopup);
 }
 
 function openAddPopup() {
-    addElementForm.reset();
-    openPopup(addPopup);
+  addElementForm.reset();
+  openPopup(addPopup);
 }
 
-function closeAddPopup() {closePopup(addPopup)}
-function closeEditPopup() {closePopup(editPopup)}
-function closeFullImgPopup() {closePopup(imgPopup)}
+function closeAddPopup() {
+  closePopup(addPopup)
+}
+
+function closeEditPopup() {
+  closePopup(editPopup)
+}
+
+function closeFullImgPopup() {
+  closePopup(imgPopup)
+}
+
+function closeAddPopupOnOverlay(e) {
+  closeOnOverlay(e, addPopup)
+}
+
+function closeEditPopupOnOverlay(e) {
+  closeOnOverlay(e, editPopup)
+}
+
+function closeFullImgPopupOnOverlay(e) {
+  closeOnOverlay(e, imgPopup)
+}
 
 initialCards.forEach(element => {
-    elements.append(createCard(element.name, element.link));
+  elements.append(createCard(element.name, element.link));
 });
-
+//При загрузке заполняем поля данными чтобы кнопка была активна
+nameInput.value = profileName.textContent;
+jobInput.value = profileJob.textContent;
