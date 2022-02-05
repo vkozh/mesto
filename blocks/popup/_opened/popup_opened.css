@@ -2,4 +2,5 @@
     opacity: 1;
     visibility: visible;
     transition: visibility .3s linear 0s, opacity .3s linear;
+    z-index: 1;
 }
