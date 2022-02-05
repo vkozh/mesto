@@ -11,7 +11,7 @@ const hideInputError = (form, input, selectors) => {
     const errorElement = form.querySelector(`.${input.id}-error`);
 
     input.classList.remove(selectors.inputErrorClass);
-    errorElement.textContent = '0';
+    errorElement.textContent = '';
     errorElement.classList.remove(selectors.errorClass);
 }
 
@@ -21,13 +21,21 @@ const hasInvalidInput = (inputList) => {
     })
 }
 
+const disableSubmitButton = (button, inactiveButtonClass) => {
+    button.classList.add(inactiveButtonClass);
+    button.disabled = true;
+}
+
+const enableSubmitButton = (button, inactiveButtonClass) => {
+    button.classList.remove(inactiveButtonClass);
+    button.disabled = false;
+}
+
 const toggleButtonState = (inputList, button, inactiveButtonClass) => {
     if (hasInvalidInput(inputList)) {
-        button.classList.add(inactiveButtonClass);
-        button.disabled = true;
+        disableSubmitButton(button, inactiveButtonClass);
     } else {
-        button.classList.remove(inactiveButtonClass);
-        button.disabled = false;
+        enableSubmitButton(button, inactiveButtonClass);
     }
 }
 
@@ -62,13 +70,15 @@ const enableValidation = (selectors) => {
     });
 };
 
-// включение валидации вызовом enableValidation
-// все настройки передаются при вызове
-enableValidation({
+const settingsValidation = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__submit-button',
     inactiveButtonClass: 'popup__submit-button_disabled',
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__input-error_active'
-});
+};
+
+// включение валидации вызовом enableValidation
+// все настройки передаются при вызове
+enableValidation(settingsValidation);
