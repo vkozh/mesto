@@ -28,13 +28,6 @@ const popupImg = popupOpenImg.querySelector('.popup-full-img__img');
 
 //открыть попап
 function openPopup(popup) {
-  const popupForm = popup.querySelector('.popup__form');
-  const inputList = Array.from(popup.querySelectorAll('.popup__input'));
-  // Очищаем форму
-  inputList.forEach(input => {
-    hideInputError(popupForm, input, settingsValidation);
-  });
-
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeOnEscape);
 }
@@ -100,15 +93,22 @@ function handleFormAddSubmit(e) {
   closePopup(popupAddCard);
 }
 
-function openEditPopup() {
+function openEditProfilePopup() {
+  //очищаем ошибки
+  hideInputError(formEditProfile, nameInput, settingsValidation);
+  hideInputError(formEditProfile, jobInput, settingsValidation);
+  //заполняем поля
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  enableSubmitButton(buttonSubmitEditProfilePopup, settingsValidation.inactiveButtonClass);
+  disableSubmitButton(buttonSubmitEditProfilePopup, settingsValidation.inactiveButtonClass);
   openPopup(popupEditProfile);
 }
 
-function openAddPopup() {
+function openAddCardPopup() {
   formAddCard.reset();
+  //очищаем ошибки
+  hideInputError(formAddCard, titleInput, settingsValidation);
+  hideInputError(formAddCard, linkInput, settingsValidation);
   disableSubmitButton(buttonSubmitAddCardPopup, settingsValidation.inactiveButtonClass);
   openPopup(popupAddCard);
 }
@@ -124,8 +124,8 @@ function openImg(e) {
 formEditProfile.addEventListener('submit', handleFormEditSubmit);
 formAddCard.addEventListener('submit', handleFormAddSubmit);
 // Обработчики на клики
-buttonOpenEditProfilePopup.addEventListener('click', openEditPopup);
-buttonOpenAddCardPopup.addEventListener('click', openAddPopup);
+buttonOpenEditProfilePopup.addEventListener('click', openEditProfilePopup);
+buttonOpenAddCardPopup.addEventListener('click', openAddCardPopup);
 // Закрыть по клику на оверлей или по кнопке
 popupAddCard.addEventListener('click', (e) => closeOnOverlay(e, popupAddCard));
 popupEditProfile.addEventListener('click', (e) => closeOnOverlay(e, popupEditProfile));
