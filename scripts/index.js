@@ -1,3 +1,5 @@
+import { initialCards } from './cards';
+
 //карточки  
 const elements = document.querySelector('.elements');
 // Поля из профиля
