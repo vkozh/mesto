@@ -1,4 +1,6 @@
-import { initialCards } from './cards';
+import { initialCards } from './cards.js';
+import Card from "./Card.js";
+// import FormValidator from "./FormValidator";
 
 //карточки  
 const elements = document.querySelector('.elements');
@@ -57,29 +59,29 @@ function closeOnEscape(e) {
 }
 
 //создать карточку
-function createCard(name, link) {
-  const newCard = cardTemplate.querySelector('.element').cloneNode(true);
-  const newCardImg = newCard.querySelector('.element__img');
-  const newCardLike = newCard.querySelector('.element__like');
-  const newCardTrash = newCard.querySelector('.element__trash');
+// function createCard(name, link) {
+//   const newCard = cardTemplate.querySelector('.element').cloneNode(true);
+//   const newCardImg = newCard.querySelector('.element__img');
+//   const newCardLike = newCard.querySelector('.element__like');
+//   const newCardTrash = newCard.querySelector('.element__trash');
 
-  newCardImg.src = link;
-  newCardImg.alt = name;
-  newCard.querySelector('.element__title').textContent = name;
-  newCardLike.addEventListener('click', toggleLike);
-  newCardImg.addEventListener('click', openImg);
-  newCardTrash.addEventListener('click', deleteCard);
+//   newCardImg.src = link;
+//   newCardImg.alt = name;
+//   newCard.querySelector('.element__title').textContent = name;
+//   newCardLike.addEventListener('click', toggleLike);
+//   newCardImg.addEventListener('click', openImg);
+//   newCardTrash.addEventListener('click', deleteCard);
 
-  return newCard;
-}
+//   return newCard;
+// }
 
-function toggleLike(e) {
-  e.target.classList.toggle('element__like_active');
-}
+// function toggleLike(e) {
+//   e.target.classList.toggle('element__like_active');
+// }
 
-function deleteCard(e) {
-  e.target.closest('.element').remove();
-}
+// function deleteCard(e) {
+//   e.target.closest('.element').remove();
+// }
 
 // Обработчики форм
 function handleFormEditSubmit(e) {
@@ -91,7 +93,13 @@ function handleFormEditSubmit(e) {
 
 function handleFormAddSubmit(e) {
   e.preventDefault();
-  elements.prepend(createCard(titleInput.value, linkInput.value));
+  const element = {
+    name: titleInput.value,
+    link: linkInput.value
+  }
+  const card = new Card(element, '#card');
+  const cardElement = card.generateCard();
+  elements.prepend(cardElement);
   closePopup(popupAddCard);
 }
 
@@ -109,9 +117,9 @@ function openEditProfilePopup() {
 function openAddCardPopup() {
   formAddCard.reset();
   //очищаем ошибки
-  hideInputError(formAddCard, titleInput, settingsValidation);
-  hideInputError(formAddCard, linkInput, settingsValidation);
-  disableSubmitButton(buttonSubmitAddCardPopup, settingsValidation.inactiveButtonClass);
+  // hideInputError(formAddCard, titleInput, settingsValidation);
+  // hideInputError(formAddCard, linkInput, settingsValidation);
+  // disableSubmitButton(buttonSubmitAddCardPopup, settingsValidation.inactiveButtonClass);
   openPopup(popupAddCard);
 }
 
@@ -133,6 +141,13 @@ popupAddCard.addEventListener('click', (e) => closeOnOverlay(e, popupAddCard));
 popupEditProfile.addEventListener('click', (e) => closeOnOverlay(e, popupEditProfile));
 popupOpenImg.addEventListener('click', (e) => closeOnOverlay(e, popupOpenImg));
 
+// initialCards.forEach(element => {
+//   elements.append(createCard(element.name, element.link));
+// });
+
 initialCards.forEach(element => {
-  elements.append(createCard(element.name, element.link));
+  const card = new Card(element, '#card');
+  const cardElement = card.generateCard();
+
+  elements.append(cardElement);
 });
