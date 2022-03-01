@@ -30,21 +30,28 @@ const cardTemplate = document.querySelector('#card').content;
 const popupImgText = popupOpenImg.querySelector('.popup-full-img__text');
 const popupImg = popupOpenImg.querySelector('.popup-full-img__img');
 
-//открыть попап
+// //открыть попап
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeOnEscape);
 }
 
-//закрыть попап
+// //закрыть попап
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closeOnEscape);
 }
 
-//закрыть на оверлее или по кнопке
+//закрыть на оверлее
 function closeOnOverlay(e, popup) {
-  if (e.target === e.currentTarget || e.target.classList.contains('popup__icon-close')) {
+  if (e.target === e.currentTarget) {
+    closePopup(popup);
+  }
+}
+
+//закрыть по клику на кнопку
+function closeOnButton(e, popup) {
+  if (e.target.classList.contains('popup__icon-close')) {
     closePopup(popup);
   }
 }
@@ -123,12 +130,12 @@ function openAddCardPopup() {
   openPopup(popupAddCard);
 }
 
-function openImg(e) {
-  popupImg.src = e.target.src;
-  popupImg.alt = e.target.alt;
-  popupImgText.textContent = e.target.alt;
-  openPopup(popupOpenImg);
-}
+// function openImg(e) {
+//   popupImg.src = e.target.src;
+//   popupImg.alt = e.target.alt;
+//   popupImgText.textContent = e.target.alt;
+//   openPopup(popupOpenImg);
+// }
 
 // Обработчики на формы
 formEditProfile.addEventListener('submit', handleFormEditSubmit);
@@ -136,10 +143,13 @@ formAddCard.addEventListener('submit', handleFormAddSubmit);
 // Обработчики на клики
 buttonOpenEditProfilePopup.addEventListener('click', openEditProfilePopup);
 buttonOpenAddCardPopup.addEventListener('click', openAddCardPopup);
-// Закрыть по клику на оверлей или по кнопке
+// Закрыть по клику на оверлей
 popupAddCard.addEventListener('click', (e) => closeOnOverlay(e, popupAddCard));
 popupEditProfile.addEventListener('click', (e) => closeOnOverlay(e, popupEditProfile));
-popupOpenImg.addEventListener('click', (e) => closeOnOverlay(e, popupOpenImg));
+// Закрыть по клику на кнопку
+popupAddCard.addEventListener('click', (e) => closeOnButton(e, popupAddCard));
+popupEditProfile.addEventListener('click', (e) => closeOnButton(e, popupEditProfile));
+// popupOpenImg.addEventListener('click', (e) => closeOnOverlay(e, popupOpenImg));
 
 // initialCards.forEach(element => {
 //   elements.append(createCard(element.name, element.link));
