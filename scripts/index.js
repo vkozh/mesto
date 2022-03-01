@@ -10,7 +10,7 @@ const profileJob = document.querySelector('.profile__about-me');
 // Попапы
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupAddCard = document.querySelector('.popup_type_add-card');
-const popupOpenImg = document.querySelector('.popup_type_full-img');
+const popupOpenImg = document.querySelector('.popup-full-img');
 // Кнопки
 const buttonOpenEditProfilePopup = document.querySelector('.profile__edit-button');
 const buttonOpenAddCardPopup = document.querySelector('.profile__add-button');
