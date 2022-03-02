@@ -1,9 +1,9 @@
-import { popupImg, popupImgText } from "./constants.js";
+import { popupOpenImg, popupImg, popupImgText } from "./constants.js";
 
 export default class Card {
     constructor(data, cardSelector, openPopup) {
         this._title = data.name;
-        this._image = data.link;
+        this._imageLink = data.link;
         this._cardSelector = cardSelector;
         this._openPopup = openPopup;
     }
@@ -19,35 +19,36 @@ export default class Card {
     }
 
     _setEventListeners() {
-        this._card.querySelector('.element__trash').addEventListener('click', (e) => this._deleteCard(e));
+        this._card.querySelector('.element__trash').addEventListener('click', () => this._deleteCard());
         this._card.querySelector('.element__like').addEventListener('click', (e) => this._toggleLike(e));
+        this._img.addEventListener('click', (e) => this._openImage(e))
     }
 
     _toggleLike(e) {
         e.target.classList.toggle('element__like_active');
     }
 
-    _deleteCard(e) {
+    _deleteCard() {
         this._card.remove();
     }
 
     generateCard() {
         this._card = this._getTemplate();
-        const img = this._card.querySelector('.element__img');
+        this._img = this._card.querySelector('.element__img');
         this._setEventListeners();
-
-        img.src = this._image;
-        img.alt = this._title;
+        
         this._card.querySelector('.element__title').textContent = this._title;
+        this._img.src = this._imageLink;
+        this._img.alt = this._title;
 
         return this._card;
     }
 
-    _openImage(e) {
-        popupImg.src = e.target.src;
-        popupImg.alt = e.target.alt;
-        popupImgText.textContent = e.target.alt;
+    _openImage() {
+        popupImg.src = this._imageLink;
+        popupImg.alt = this._title;
+        popupImgText.textContent = this._title;
 
-        this._openPopup(popupImg);
+        this._openPopup(popupOpenImg);
     }
 }
