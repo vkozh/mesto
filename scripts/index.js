@@ -25,14 +25,6 @@ const jobInput = formEditProfile.querySelector('.popup__input_type_job');
 const titleInput = formAddCard.querySelector('.popup__input_type_title');
 const linkInput = formAddCard.querySelector('.popup__input_type_link');
 
-//создать карточку
-function createCard(element, selector) {
-  const card = new Card(element, selector, openPopup);
-  const cardElement = card.generateCard();
-  const cardImg = cardElement.querySelector('.element__img');
-  cardImg.addEventListener('click', openImage);
-  return cardElement;
-}
 
 //открыть попап
 function openPopup(popup) {
@@ -69,14 +61,10 @@ function closeOnEscape(e) {
   }
 }
 
-function openImage(e) {
-  const popupImg = popupOpenImg.querySelector('.popup-full-img__img');
-  const popupImgText = popupOpenImg.querySelector('.popup-full-img__text');
-  popupImg.src = e.target.src;
-  popupImg.alt = e.target.alt;
-  popupImgText.textContent = e.target.alt;
-
-  openPopup(popupOpenImg);
+//создать карточку
+function createCard(element, selector) {
+  const card = new Card(element, selector, openPopup);
+  return card.generateCard();
 }
 
 // Обработчики форм
