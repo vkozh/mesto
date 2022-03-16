@@ -1,5 +1,3 @@
-// import { popupOpenImg, popupImg, popupImgText } from "../utils/constants.js";
-
 export default class Card {
     constructor(data, cardSelector, handleCardClick) {
         this._title = data.name;

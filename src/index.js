@@ -1,6 +1,7 @@
+import './index.css';
 import {
   initialCards
-} from '../scripts/utils/cards.js';
+} from './scripts/utils/cards.js';
 import {
   listElementsSelector,
   formEditProfile,
@@ -14,13 +15,13 @@ import {
   titleInput,
   linkInput
 
-} from '../scripts/utils/constants.js';
-import FormValidator from '../scripts/components/FormValidator.js';
-import Section from '../scripts/components/Section.js';
-import Card from "../scripts/components/Card.js";
-import UserInfo from '../scripts/components/UserInfo.js';
-import PopupWithImage from '../scripts/components/PopupWithImage.js';
-import PopupWithForm from '../scripts/components/PopupWithForm.js';
+} from './scripts/utils/constants.js';
+import FormValidator from './scripts/components/FormValidator.js';
+import Section from './scripts/components/Section.js';
+import Card from "./scripts/components/Card.js";
+import UserInfo from './scripts/components/UserInfo.js';
+import PopupWithImage from './scripts/components/PopupWithImage.js';
+import PopupWithForm from './scripts/components/PopupWithForm.js';
 
 const settingsValidation = {
   inputSelector: '.popup__input',
