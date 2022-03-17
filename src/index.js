@@ -23,42 +23,11 @@ import UserInfo from './scripts/components/UserInfo.js';
 import PopupWithImage from './scripts/components/PopupWithImage.js';
 import PopupWithForm from './scripts/components/PopupWithForm.js';
 
-const settingsValidation = {
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-};
-
-const user = new UserInfo({
-  userNameSelector: '.profile__name-text',
-  userAboutSelector: '.profile__about-me'
-});
-
-const popupEditProfile = new PopupWithForm('.popup_type_edit-profile', (e, [name, job]) => {
-  e.preventDefault();
-  user.setUserInfo(name, job)
-  popupEditProfile.close();
-});
-
-const popupAddCard = new PopupWithForm('.popup_type_add-card', (e, [title, link]) => {
-  e.preventDefault();
-  const item = {
-    name: title,
-    link: link
-  }
+function createCard(item, position) {
   const card = new Card(item, '#card', popupOpenImg.open);
   const cardElement = card.generateCard();
-  items.addItem(cardElement, 'prepend');
-  popupAddCard.close();
-});
-
-const popupOpenImg = new PopupWithImage('.popup-full-img');
-
-// Валидаторы форм
-const formEditProfileValidator = new FormValidator(settingsValidation, formEditProfile);
-const formAddCardValidator = new FormValidator(settingsValidation, formAddCard);
+  items.addItem(cardElement, position);
+}
 
 function openEditProfilePopup() {
   //очищаем ошибки
@@ -79,6 +48,41 @@ function openAddCardPopup() {
   popupAddCard.open();
 }
 
+const settingsValidation = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit-button',
+  inactiveButtonClass: 'popup__submit-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+};
+
+const user = new UserInfo({
+  userNameSelector: '.profile__name-text',
+  userAboutSelector: '.profile__about-me'
+});
+
+const popupEditProfile = new PopupWithForm('.popup_type_edit-profile', (e, {inputName, inputJob}) => {
+  e.preventDefault();
+  user.setUserInfo(inputName, inputJob)
+  popupEditProfile.close();
+});
+
+const popupAddCard = new PopupWithForm('.popup_type_add-card', (e, {inputTitle, inputLink}) => {
+  e.preventDefault();
+  const item = {
+    name: inputTitle,
+    link: inputLink
+  }
+  createCard(item, 'prepend');
+  popupAddCard.close();
+});
+
+const popupOpenImg = new PopupWithImage('.popup-full-img');
+
+// Валидаторы форм
+const formEditProfileValidator = new FormValidator(settingsValidation, formEditProfile);
+const formAddCardValidator = new FormValidator(settingsValidation, formAddCard);
+
 //Устанавливаем слушателей на попапы
 popupEditProfile.setEventListeners();
 popupAddCard.setEventListeners();
@@ -95,9 +99,7 @@ formAddCardValidator.enableValidation();
 const items = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(item, '#card', popupOpenImg.open);
-    const cardElement = card.generateCard();
-    items.addItem(cardElement, 'append');
+    createCard(item, 'append');
   }
 }, listElementsSelector);
 
