@@ -85,10 +85,6 @@ const popupAddCard = new PopupWithForm('.popup_type_add-card', (e, {
   inputLink
 }) => {
   e.preventDefault();
-  // const item = {
-  //   name: inputTitle,
-  //   link: inputLink
-  // }
   api.addCard(inputTitle, inputLink)
     .then(data => createCard(data, 'prepend'));
   popupAddCard.close();
