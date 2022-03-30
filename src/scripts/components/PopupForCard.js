@@ -10,13 +10,14 @@ export default class PopupForCard extends Popup {
         this._popupForm = this._popup.querySelector(popupFormSelector);
     }
 
-    open(deleteCard) {
+    open(deleteCard, id) {
         this._deleteCard = deleteCard;
+        this._cardId = id;
         super.open();
     }
 
     setEventListeners() {
         super.setEventListeners();
-        this._popupForm.addEventListener('submit', (e) => this._handleFormSubmit(e, this._deleteCard));
+        this._popupForm.addEventListener('submit', (e) => this._handleFormSubmit(e, this._deleteCard, this._cardId));
     }
 }

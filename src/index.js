@@ -25,7 +25,8 @@ import PopupWithForm from './scripts/components/PopupWithForm.js';
 import PopupForCard from './scripts/components/PopupForCard';
 import Api from './scripts/components/Api';
 
-const api = new Api('https://mesto.nomoreparties.co/v1/cohort-39/', 'd0163cf8-cfab-4a34-ac21-cc13d220d7ff');
+const api = new Api('https://mesto.nomoreparties.co/v1/cohort-39', 'd0163cf8-cfab-4a34-ac21-cc13d220d7ff');
+//"6cbf3b0824390efb9a769060"
 
 function createCard(item, position) {
   const card = new Card(item, '#card', popupOpenImg.open, popupDeleteCard.open);
@@ -92,9 +93,10 @@ const popupAddCard = new PopupWithForm('.popup_type_add-card', (e, {
 
 const popupOpenImg = new PopupWithImage('.popup-full-img');
 
-const popupDeleteCard = new PopupForCard('.popup_type_delete-card', (e, deleteCard) => {
+const popupDeleteCard = new PopupForCard('.popup_type_delete-card', (e, deleteCard, cardId) => {
   e.preventDefault();
   deleteCard();
+  api.deleteCard(cardId);
   popupDeleteCard.close();
 });
 
