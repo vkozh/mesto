@@ -2,7 +2,6 @@
     opacity: 1;
     transition: all .3s ease;
     flex-shrink: 0;
-    margin: 0 0 0 10px;
     width: 22px;
     height: 19px;
     background-image: url(../../../images/like.svg);
