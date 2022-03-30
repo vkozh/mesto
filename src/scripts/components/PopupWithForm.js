@@ -1,8 +1,6 @@
 import Popup from "./Popup.js";
 import {
-    popupFormSelector,
-    popupInputNameSelector,
-    popupInputJobSelector
+    popupFormSelector
 } from '../utils/constants.js';
 
 export default class PopupWithForm extends Popup {
