@@ -29,9 +29,18 @@ const api = new Api('https://mesto.nomoreparties.co/v1/cohort-39', 'd0163cf8-cfa
 //"6cbf3b0824390efb9a769060"
 
 function createCard(item, position) {
-  const card = new Card(item, '#card', popupOpenImg.open, popupDeleteCard.open);
+  const card = new Card(item, '#card', popupOpenImg.open, popupDeleteCard.open, toggleLike);
   const cardElement = card.generateCard();
   items.addItem(cardElement, position);
+}
+
+function toggleLike(cardId, updateLikes, isLiked) {
+ if(isLiked)
+    api.deleteLike(cardId)
+      .then(data => updateLikes(data.likes.length, false));
+   else 
+    api.setLike(cardId)
+      .then(data => updateLikes(data.likes.length, true));
 }
 
 function openEditProfilePopup() {
