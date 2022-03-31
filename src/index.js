@@ -1,8 +1,5 @@
 import './index.css';
 import {
-  initialCards
-} from './scripts/utils/cards.js';
-import {
   listElementsSelector,
   formEditProfile,
   formAddCard,
@@ -29,8 +26,20 @@ import PopupWithForm from './scripts/components/PopupWithForm.js';
 import PopupForCard from './scripts/components/PopupForCard';
 import Api from './scripts/components/Api';
 
-const api = new Api('https://mesto.nomoreparties.co/v1/cohort-39', 'd0163cf8-cfab-4a34-ac21-cc13d220d7ff');
-//"6cbf3b0824390efb9a769060"
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-39',
+  headers: {
+    authorization: 'd0163cf8-cfab-4a34-ac21-cc13d220d7ff',
+    'Content-Type': 'application/json'
+   },
+   renderLoading: renderLoading
+  });
+
+function renderLoading(isLoading, button, text){
+  isLoading
+  ? button.textContent = "Сохранение..."
+  : button.textContent = text;
+}
 
 function createCard(item, position) {
   const card = new Card(item, '#card', popupOpenImg.open, popupDeleteCard.open, toggleLike);
@@ -51,10 +60,10 @@ function openEditProfilePopup() {
   //очищаем ошибки
   formEditProfileValidator.hideInputError(nameInput);
   formEditProfileValidator.hideInputError(jobInput);
+  formEditProfileValidator.disableSubmitButton(buttonSubmitEditProfilePopup);
   //заполняем поля
   nameInput.value = user.getUserInfo().name;
   jobInput.value = user.getUserInfo().job;
-  formEditProfileValidator.disableSubmitButton(buttonSubmitEditProfilePopup);
   popupEditProfile.open();
 }
 
@@ -98,8 +107,8 @@ const popupEditProfile = new PopupWithForm('.popup_type_edit-profile', (e, {
   inputJob
 }) => {
   e.preventDefault();
-  api.editProfile(inputName, inputJob)
-    .then(data => user.setUserInfo(data.name, data.about, data.avatar))
+  api.editProfile(inputName, inputJob, buttonSubmitEditProfilePopup)
+    .then(data => user.setUserInfo(data.name, data.about, data.avatar));
   popupEditProfile.close();
 });
 
@@ -107,8 +116,8 @@ const popupEditAvatar = new PopupWithForm('.popup_type_edit-avatar', (e, {
   inputLink
 }) => {
   e.preventDefault();
-  api.changeAvatar(inputLink)
-  .then(data => user.setUserInfo(data.name, data.about, data.avatar))
+  api.changeAvatar(inputLink, buttonSubmitEditAvatarPopup)
+  .then(data => user.setUserInfo(data.name, data.about, data.avatar));
   popupEditAvatar.close();
 })
 
@@ -117,7 +126,7 @@ const popupAddCard = new PopupWithForm('.popup_type_add-card', (e, {
   inputLink
 }) => {
   e.preventDefault();
-  api.addCard(inputTitle, inputLink)
+  api.addCard(inputTitle, inputLink, buttonSubmitAddCardPopup)
     .then(data => createCard(data, 'prepend'));
   popupAddCard.close();
 });

@@ -12,6 +12,7 @@
     background-color: rgba(0, 0, 0, 0);
     background-size: 26px;
     cursor: pointer;
+    opacity: 0;
     transition: opacity .3s ease;
 }
 

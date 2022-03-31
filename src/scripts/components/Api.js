@@ -1,16 +1,14 @@
 export default class Api {
-    constructor(url, authorization) {
-        this._url = url;
-        this._authorization = authorization;
+    constructor({baseUrl, headers, renderLoading}) {
+        this._url = baseUrl;
+        this._headers = headers;
+        this._renderLoading = renderLoading;
     }
 
-    _mainFetch(path, method, ...params) {
+    _mainFetch(path, method) {
         return fetch(`${this._url}${path}`, {
                 method: method,
-                headers: {
-                    authorization: this._authorization,
-                },
-                params
+                headers: this._headers
             })
             .then(res => {
                 if (res.ok)
@@ -18,6 +16,23 @@ export default class Api {
                 return Promise.reject(`Ошибка ${res.status}`);
             })
             .catch(err => `Ошибка ${err}`);
+    }
+
+    _profileFetch(path, method, bodyObject, button) {
+        const text = button.textContent;
+        this._renderLoading(true, button);
+        return fetch(`${this._url}${path}`, {
+                method: method,
+                headers: this._headers,
+                body: JSON.stringify(bodyObject)
+            })
+            .then(res => {
+                if (res.ok)
+                    return res.json();
+                return Promise.reject(`Ошибка ${res.status}`);
+            })
+            .catch(err => `Ошибка ${err}`)
+            .finally(() => this._renderLoading(false, button, text));
     }
 
     getUser() {
@@ -28,45 +43,18 @@ export default class Api {
         return this._mainFetch('/cards', 'GET');
     }
 
-    editProfile(name, about) {
-        return fetch(`${this._url}/users/me`, {
-                method: 'PATCH',
-                headers: {
-                    authorization: this._authorization,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    name: name,
-                    about: about
-                })
-            })
-            .then(res => {
-                if (res.ok)
-                    return res.json();
-                return Promise.reject(`Ошибка ${res.status}`);
-            })
-            .catch(err => `Ошибка ${err}`);
+    editProfile(name, about, button) {
+        return this._profileFetch('/users/me', 'PATCH', {
+            name: name,
+            about: about
+        }, button);
     }
 
-
-    addCard(name, link) {
-        return fetch(`${this._url}/cards`, {
-            method: 'POST',
-            headers: {
-                authorization: this._authorization,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: name,
-                link: link
-            })
-        })
-        .then(res => {
-            if (res.ok)
-                return res.json();
-            return Promise.reject(`Ошибка ${res.status}`);
-        })
-        .catch(err => `Ошибка ${err}`);
+    addCard(name, link, button) {
+        return this._profileFetch('/cards', 'POST', {
+            name: name,
+            link: link
+        }, button);
     }
 
     deleteCard(cardId) {
@@ -81,22 +69,9 @@ export default class Api {
         return this._mainFetch(`/cards/${cardId}/likes`, 'DELETE');
     }
 
-    changeAvatar(avatar) {
-        console.log(avatar)
-        return fetch(`${this._url}/users/me/avatar`, {
-                method: 'PATCH',
-                headers: {
-                    authorization: this._authorization
-                },
-                body: JSON.stringify({
-                    avatar: avatar
-                })
-            })
-            .then(res => {
-                if (res.ok)
-                    return res.json();
-                return Promise.reject(`Ошибка ${res.status}`);
-            })
-            .catch(err => `Ошибка ${err}`);
+    changeAvatar(avatar, button) {
+        return this._profileFetch('/users/me/avatar', 'PATCH', {
+            avatar: avatar
+        }, button);
     }
 }
