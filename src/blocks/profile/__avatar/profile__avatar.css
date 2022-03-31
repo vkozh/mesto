@@ -3,4 +3,5 @@
     height: 120px;
     object-fit: cover;
     border-radius: 50%;
+    transition: opacity .3s ease;
 }

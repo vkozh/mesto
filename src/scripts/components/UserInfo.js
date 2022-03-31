@@ -12,7 +12,8 @@ export default class UserInfo {
     getUserInfo() {
         return {
             name: this._userNameElement.textContent,
-            job: this._userAboutElement.textContent
+            job: this._userAboutElement.textContent,
+            avatar: this._userAvatarSelector.src
         }
     }
 

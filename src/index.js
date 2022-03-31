@@ -6,14 +6,18 @@ import {
   listElementsSelector,
   formEditProfile,
   formAddCard,
+  formEditAvatar,
   buttonOpenEditProfilePopup,
+  buttonOpenEditAvatarPopup,
   buttonOpenAddCardPopup,
   buttonSubmitEditProfilePopup,
   buttonSubmitAddCardPopup,
+  buttonSubmitEditAvatarPopup,
   nameInput,
   jobInput,
   titleInput,
-  linkInput
+  linkInput,
+  linkAvatarInput
 
 } from './scripts/utils/constants.js';
 import FormValidator from './scripts/components/FormValidator.js';
@@ -35,12 +39,12 @@ function createCard(item, position) {
 }
 
 function toggleLike(cardId, updateLikes, isLiked) {
- if(isLiked)
+  if (isLiked)
     api.deleteLike(cardId)
-      .then(data => updateLikes(data.likes.length, false));
-   else 
+    .then(data => updateLikes(data.likes.length, false));
+  else
     api.setLike(cardId)
-      .then(data => updateLikes(data.likes.length, true));
+    .then(data => updateLikes(data.likes.length, true));
 }
 
 function openEditProfilePopup() {
@@ -60,6 +64,15 @@ function openAddCardPopup() {
   formAddCardValidator.hideInputError(linkInput);
   formAddCardValidator.disableSubmitButton(buttonSubmitAddCardPopup);
   popupAddCard.open();
+}
+
+function openEditAvatarPopup() {
+  //очищаем ошибки
+  formEditAvatarValidator.hideInputError(linkAvatarInput);
+  formEditAvatarValidator.disableSubmitButton(buttonSubmitEditAvatarPopup);
+  //заполняем поля
+  linkAvatarInput.value = user.getUserInfo().avatar;
+  popupEditAvatar.open();
 }
 
 const settingsValidation = {
@@ -90,6 +103,15 @@ const popupEditProfile = new PopupWithForm('.popup_type_edit-profile', (e, {
   popupEditProfile.close();
 });
 
+const popupEditAvatar = new PopupWithForm('.popup_type_edit-avatar', (e, {
+  inputLink
+}) => {
+  e.preventDefault();
+  api.changeAvatar(inputLink)
+  .then(data => user.setUserInfo(data.name, data.about, data.avatar))
+  popupEditAvatar.close();
+})
+
 const popupAddCard = new PopupWithForm('.popup_type_add-card', (e, {
   inputTitle,
   inputLink
@@ -112,9 +134,11 @@ const popupDeleteCard = new PopupForCard('.popup_type_delete-card', (e, deleteCa
 // Валидаторы форм
 const formEditProfileValidator = new FormValidator(settingsValidation, formEditProfile);
 const formAddCardValidator = new FormValidator(settingsValidation, formAddCard);
+const formEditAvatarValidator = new FormValidator(settingsValidation, formEditAvatar)
 
 //Устанавливаем слушателей на попапы
 popupEditProfile.setEventListeners();
+popupEditAvatar.setEventListeners();
 popupAddCard.setEventListeners();
 popupOpenImg.setEventListeners();
 popupDeleteCard.setEventListeners();
@@ -122,10 +146,12 @@ popupDeleteCard.setEventListeners();
 // Обработчики на кнопки открытия форм
 buttonOpenEditProfilePopup.addEventListener('click', openEditProfilePopup);
 buttonOpenAddCardPopup.addEventListener('click', openAddCardPopup);
+buttonOpenEditAvatarPopup.addEventListener('click', openEditAvatarPopup);
 
 //валидация форм
 formEditProfileValidator.enableValidation();
 formAddCardValidator.enableValidation();
+formEditAvatarValidator.enableValidation();
 
 let items;
 api.getCards().then(data => {
