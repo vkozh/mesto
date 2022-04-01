@@ -1,5 +1,6 @@
 import './index.css';
 import {
+  settingsValidation,
   listElementsSelector,
   formEditProfile,
   formAddCard,
@@ -14,7 +15,8 @@ import {
   jobInput,
   titleInput,
   linkInput,
-  linkAvatarInput
+  linkAvatarInput,
+  TEXT_LOADING
 
 } from '../scripts/utils/constants.js';
 import FormValidator from '../scripts/components/FormValidator.js';
@@ -38,7 +40,7 @@ const api = new Api({
 function renderLoading(isLoading, button, text) {
   isLoading
     ?
-    button.textContent = "Сохранение..." :
+    button.textContent = TEXT_LOADING :
     button.textContent = text;
 }
 
@@ -87,14 +89,6 @@ function openEditAvatarPopup() {
   popupEditAvatar.open();
 }
 
-const settingsValidation = {
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-};
-
 const user = new UserInfo({
   userNameSelector: '.profile__name-text',
   userAboutSelector: '.profile__about-me',
@@ -113,8 +107,8 @@ const popupEditProfile = new PopupWithForm('.popup_type_edit-profile', (e, {
   e.preventDefault();
   api.editProfile(inputName, inputJob, buttonSubmitEditProfilePopup)
     .then(data => user.setUserInfo(data.name, data.about, data.avatar))
-    .catch(err => `Ошибка ${err}`);
-  popupEditProfile.close();
+    .catch(err => `Ошибка ${err}`)
+    .finally(() => popupEditProfile.close());
 });
 
 const popupEditAvatar = new PopupWithForm('.popup_type_edit-avatar', (e, {
@@ -123,8 +117,8 @@ const popupEditAvatar = new PopupWithForm('.popup_type_edit-avatar', (e, {
   e.preventDefault();
   api.changeAvatar(inputLink, buttonSubmitEditAvatarPopup)
     .then(data => user.setUserInfo(data.name, data.about, data.avatar))
-    .catch(err => `Ошибка ${err}`);
-  popupEditAvatar.close();
+    .catch(err => `Ошибка ${err}`)
+    .finally(() => popupEditAvatar.close());
 })
 
 const popupAddCard = new PopupWithForm('.popup_type_add-card', (e, {
@@ -134,8 +128,8 @@ const popupAddCard = new PopupWithForm('.popup_type_add-card', (e, {
   e.preventDefault();
   api.addCard(inputTitle, inputLink, buttonSubmitAddCardPopup)
     .then(data => createCard(data, 'prepend'))
-    .catch(err => `Ошибка ${err}`);
-  popupAddCard.close();
+    .catch(err => `Ошибка ${err}`)
+    .finally(() => popupAddCard.close());
 });
 
 const popupOpenImg = new PopupWithImage('.popup-full-img');
@@ -144,8 +138,8 @@ const popupDeleteCard = new PopupForCard('.popup_type_delete-card', (e, deleteCa
   e.preventDefault();
   deleteCard();
   api.deleteCard(cardId)
-    .catch(err => `Ошибка ${err}`);
-  popupDeleteCard.close();
+    .catch(err => `Ошибка ${err}`)
+    .finally(() => popupDeleteCard.close());
 });
 
 // Валидаторы форм

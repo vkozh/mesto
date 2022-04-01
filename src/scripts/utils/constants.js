@@ -31,3 +31,13 @@ export const jobInput = formEditProfile.querySelector(popupInputJobSelector);
 export const titleInput = formAddCard.querySelector(popupInputTitleSelector);
 export const linkInput = formAddCard.querySelector(popupInputLinkSelector);
 export const linkAvatarInput = formEditAvatar.querySelector(popupInputLinkAvatarSelector);
+// начальные настройки
+export const settingsValidation = {
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__submit-button',
+    inactiveButtonClass: 'popup__submit-button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__input-error_active'
+  };
+
+export const TEXT_LOADING = 'Сохранение...'
