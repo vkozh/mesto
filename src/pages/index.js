@@ -16,15 +16,15 @@ import {
   linkInput,
   linkAvatarInput
 
-} from './scripts/utils/constants.js';
-import FormValidator from './scripts/components/FormValidator.js';
-import Section from './scripts/components/Section.js';
-import Card from "./scripts/components/Card.js";
-import UserInfo from './scripts/components/UserInfo.js';
-import PopupWithImage from './scripts/components/PopupWithImage.js';
-import PopupWithForm from './scripts/components/PopupWithForm.js';
-import PopupForCard from './scripts/components/PopupForCard';
-import Api from './scripts/components/Api';
+} from '../scripts/utils/constants.js';
+import FormValidator from '../scripts/components/FormValidator.js';
+import Section from '../scripts/components/Section.js';
+import Card from "../scripts/components/Card.js";
+import UserInfo from '../scripts/components/UserInfo.js';
+import PopupWithImage from '../scripts/components/PopupWithImage.js';
+import PopupWithForm from '../scripts/components/PopupWithForm.js';
+import PopupForCard from '../scripts/components/PopupForCard';
+import Api from '../scripts/components/Api';
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-39',
