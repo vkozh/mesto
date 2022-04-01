@@ -40,4 +40,5 @@ export const settingsValidation = {
     errorClass: 'popup__input-error_active'
   };
 
-export const TEXT_LOADING = 'Сохранение...'
+export const TEXT_LOADING = 'Сохранение...';
+export const TOKEN = 'd0163cf8-cfab-4a34-ac21-cc13d220d7ff';

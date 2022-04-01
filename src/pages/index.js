@@ -16,7 +16,8 @@ import {
   titleInput,
   linkInput,
   linkAvatarInput,
-  TEXT_LOADING
+  TEXT_LOADING,
+  TOKEN
 
 } from '../scripts/utils/constants.js';
 import FormValidator from '../scripts/components/FormValidator.js';
@@ -31,7 +32,7 @@ import Api from '../scripts/components/Api';
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-39',
   headers: {
-    authorization: 'd0163cf8-cfab-4a34-ac21-cc13d220d7ff',
+    authorization: TOKEN,
     'Content-Type': 'application/json'
   },
   renderLoading: renderLoading
@@ -67,8 +68,9 @@ function openEditProfilePopup() {
   formEditProfileValidator.hideInputError(jobInput);
   formEditProfileValidator.disableSubmitButton(buttonSubmitEditProfilePopup);
   //заполняем поля
-  nameInput.value = user.getUserInfo().name;
-  jobInput.value = user.getUserInfo().job;
+  const { name, job } = user.getUserInfo();
+  nameInput.value = name;
+  jobInput.value = job;
   popupEditProfile.open();
 }
 
@@ -95,10 +97,9 @@ const user = new UserInfo({
   userAvatarSelector: '.profile__avatar'
 });
 
-api.getUser().then(data =>
-  user.setUserInfo(data.name, data.about, data.avatar)
-  .catch(err => `Ошибка ${err}`)
-);
+api.getUser()
+  .then(data => user.setUserInfo(data.name, data.about, data.avatar))
+  .catch(err => `Ошибка ${err}`);
 
 const popupEditProfile = new PopupWithForm('.popup_type_edit-profile', (e, {
   inputName,
