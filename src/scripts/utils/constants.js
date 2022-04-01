@@ -8,6 +8,10 @@ export const popupInputJobSelector = '.popup__input_type_job';
 export const popupInputTitleSelector = '.popup__input_type_title';
 export const popupInputLinkSelector = '.popup__input_type_link';
 export const popupInputLinkAvatarSelector = '.popup__input_type_avatar-link';
+//профиль пользователя
+export const userNameSelector = '.profile__name-text';
+export const userAboutSelector = '.profile__about-me';
+export const userAvatarSelector = '.profile__avatar';
 //контейнер для карточек
 export const listElementsSelector = '.elements';
 // Попапы

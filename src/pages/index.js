@@ -5,6 +5,9 @@ import {
   formEditProfile,
   formAddCard,
   formEditAvatar,
+  userNameSelector,
+  userAboutSelector,
+  userAvatarSelector,
   buttonOpenEditProfilePopup,
   buttonOpenEditAvatarPopup,
   buttonOpenAddCardPopup,
@@ -92,16 +95,6 @@ function openEditAvatarPopup() {
   popupEditAvatar.open();
 }
 
-const user = new UserInfo({
-  userNameSelector: '.profile__name-text',
-  userAboutSelector: '.profile__about-me',
-  userAvatarSelector: '.profile__avatar'
-});
-
-api.getUser()
-  .then(data => user.setUserInfo(data.name, data.about, data.avatar))
-  .catch(err => `Ошибка ${err}`);
-
 const popupEditProfile = new PopupWithForm('.popup_type_edit-profile', (e, {
   inputName,
   inputJob
@@ -174,14 +167,24 @@ formEditProfileValidator.enableValidation();
 formAddCardValidator.enableValidation();
 formEditAvatarValidator.enableValidation();
 
+const user = new UserInfo({
+  userNameSelector,
+  userAboutSelector,
+  userAvatarSelector
+});
+
 let cardSection;
-api.getCards().then(data => {
+Promise.all([api.getUser(), api.getCards()])
+  .then(([userData, cards]) => {
+    // установка данных пользователя
+    user.setUserInfo(userData.name, userData.about, userData.avatar);
+    // отрисовка карточек
     cardSection = new Section({
-      items: data,
+      items: cards,
       renderer: (item) => {
         createCard(item, 'append');
       }
     }, listElementsSelector);
     cardSection.renderItems();
   })
-  .catch(err => `Ошибка ${err}`);
+  .catch(err => console.log(`Ошибка ${err}`));
