@@ -14,8 +14,7 @@ export default class Api {
                 if (res.ok)
                     return res.json();
                 return Promise.reject(`Ошибка ${res.status}`);
-            })
-            .catch(err => `Ошибка ${err}`);
+            });
     }
 
     _profileFetch(path, method, bodyObject, button) {
@@ -31,7 +30,6 @@ export default class Api {
                     return res.json();
                 return Promise.reject(`Ошибка ${res.status}`);
             })
-            .catch(err => `Ошибка ${err}`)
             .finally(() => this._renderLoading(false, button, text));
     }
 

@@ -31,14 +31,15 @@ const api = new Api({
   headers: {
     authorization: 'd0163cf8-cfab-4a34-ac21-cc13d220d7ff',
     'Content-Type': 'application/json'
-   },
-   renderLoading: renderLoading
-  });
+  },
+  renderLoading: renderLoading
+});
 
-function renderLoading(isLoading, button, text){
+function renderLoading(isLoading, button, text) {
   isLoading
-  ? button.textContent = "Сохранение..."
-  : button.textContent = text;
+    ?
+    button.textContent = "Сохранение..." :
+    button.textContent = text;
 }
 
 function createCard(item, position) {
@@ -50,10 +51,12 @@ function createCard(item, position) {
 function toggleLike(cardId, updateLikes, isLiked) {
   if (isLiked)
     api.deleteLike(cardId)
-    .then(data => updateLikes(data.likes.length, false));
+    .then(data => updateLikes(data.likes.length, false))
+    .catch(err => `Ошибка ${err}`);
   else
     api.setLike(cardId)
-    .then(data => updateLikes(data.likes.length, true));
+    .then(data => updateLikes(data.likes.length, true))
+    .catch(err => `Ошибка ${err}`);
 }
 
 function openEditProfilePopup() {
@@ -100,7 +103,8 @@ const user = new UserInfo({
 
 api.getUser().then(data =>
   user.setUserInfo(data.name, data.about, data.avatar)
-)
+  .catch(err => `Ошибка ${err}`)
+);
 
 const popupEditProfile = new PopupWithForm('.popup_type_edit-profile', (e, {
   inputName,
@@ -108,7 +112,8 @@ const popupEditProfile = new PopupWithForm('.popup_type_edit-profile', (e, {
 }) => {
   e.preventDefault();
   api.editProfile(inputName, inputJob, buttonSubmitEditProfilePopup)
-    .then(data => user.setUserInfo(data.name, data.about, data.avatar));
+    .then(data => user.setUserInfo(data.name, data.about, data.avatar))
+    .catch(err => `Ошибка ${err}`);
   popupEditProfile.close();
 });
 
@@ -117,7 +122,8 @@ const popupEditAvatar = new PopupWithForm('.popup_type_edit-avatar', (e, {
 }) => {
   e.preventDefault();
   api.changeAvatar(inputLink, buttonSubmitEditAvatarPopup)
-  .then(data => user.setUserInfo(data.name, data.about, data.avatar));
+    .then(data => user.setUserInfo(data.name, data.about, data.avatar))
+    .catch(err => `Ошибка ${err}`);
   popupEditAvatar.close();
 })
 
@@ -127,7 +133,8 @@ const popupAddCard = new PopupWithForm('.popup_type_add-card', (e, {
 }) => {
   e.preventDefault();
   api.addCard(inputTitle, inputLink, buttonSubmitAddCardPopup)
-    .then(data => createCard(data, 'prepend'));
+    .then(data => createCard(data, 'prepend'))
+    .catch(err => `Ошибка ${err}`);
   popupAddCard.close();
 });
 
@@ -136,7 +143,8 @@ const popupOpenImg = new PopupWithImage('.popup-full-img');
 const popupDeleteCard = new PopupForCard('.popup_type_delete-card', (e, deleteCard, cardId) => {
   e.preventDefault();
   deleteCard();
-  api.deleteCard(cardId);
+  api.deleteCard(cardId)
+    .catch(err => `Ошибка ${err}`);
   popupDeleteCard.close();
 });
 
@@ -164,11 +172,12 @@ formEditAvatarValidator.enableValidation();
 
 let items;
 api.getCards().then(data => {
-  items = new Section({
-    items: data,
-    renderer: (item) => {
-      createCard(item, 'append');
-    }
-  }, listElementsSelector);
-  items.renderItems();
-});
+    items = new Section({
+      items: data,
+      renderer: (item) => {
+        createCard(item, 'append');
+      }
+    }, listElementsSelector);
+    items.renderItems();
+  })
+  .catch(err => `Ошибка ${err}`);
