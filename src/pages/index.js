@@ -24,7 +24,7 @@ import Card from "../scripts/components/Card.js";
 import UserInfo from '../scripts/components/UserInfo.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
-import PopupForCard from '../scripts/components/PopupForCard';
+import ConfirmationPopup from '../scripts/components/ConfirmationPopup';
 import Api from '../scripts/components/Api';
 
 const api = new Api({
@@ -37,32 +37,25 @@ const api = new Api({
 });
 
 function renderLoading(isLoading, button, text) {
-  isLoading
-    ?
+  isLoading ?
     button.textContent = TEXT_LOADING :
     button.textContent = text;
 }
 
-function createCard(item, position) {
-  const card = new Card(item, cardSelector, popupOpenImg.open, popupDeleteCard.open, toggleLike);
-  const cardElement = card.generateCard();
-  cardSection.addItem(cardElement, position);
-}
-
-function toggleLike(cardId, updateLikes, isLiked) {
-  if (isLiked)
-    api.deleteLike(cardId)
-    .then(data => updateLikes(data.likes.length, false))
-    .catch(err => `Ошибка ${err}`);
+function toggleLike(card) {
+  if (card.isLiked)
+    api.deleteLike(card.getId())
+    .then(data => card.updateLikes(data.likes.length, false))
+    .catch(err => console.log(`Ошибка ${err}`));
   else
-    api.setLike(cardId)
-    .then(data => updateLikes(data.likes.length, true))
-    .catch(err => `Ошибка ${err}`);
+    api.setLike(card.getId())
+    .then(data => card.updateLikes(data.likes.length, true))
+    .catch(err => console.log(`Ошибка ${err}`));
 }
 
 function openEditProfilePopup() {
   //очищаем ошибки
-  formValidators[form.editProfile.getAttribute('name')].resetValidation();  
+  formValidators[form.editProfile.getAttribute('name')].resetValidation();
   //заполняем поля
   const {
     name,
@@ -75,13 +68,13 @@ function openEditProfilePopup() {
 
 function openAddCardPopup() {
   //очищаем ошибки
-  formValidators[form.addCard.getAttribute('name')].resetValidation();  
+  formValidators[form.addCard.getAttribute('name')].resetValidation();
   popupAddCard.open();
 }
 
 function openEditAvatarPopup() {
   //очищаем ошибки
-  formValidators[form.editAvatar.getAttribute('name')].resetValidation();  
+  formValidators[form.editAvatar.getAttribute('name')].resetValidation();
   popupEditAvatar.open();
 }
 
@@ -95,7 +88,7 @@ const popupEditProfile = new PopupWithForm(popupSelector.editProfile, (e, {
       user.setUserInfo(data);
       popupEditProfile.close()
     })
-    .catch(err => `Ошибка ${err}`);
+    .catch(err => console.log(`Ошибка ${err}`));
 });
 
 const popupEditAvatar = new PopupWithForm(popupSelector.editAvatar, (e, {
@@ -107,7 +100,7 @@ const popupEditAvatar = new PopupWithForm(popupSelector.editAvatar, (e, {
       user.setUserInfo(data);
       popupEditAvatar.close();
     })
-    .catch(err => `Ошибка ${err}`);
+    .catch(err => console.log(`Ошибка ${err}`));
 })
 
 const popupAddCard = new PopupWithForm(popupSelector.addCard, (e, {
@@ -117,22 +110,22 @@ const popupAddCard = new PopupWithForm(popupSelector.addCard, (e, {
   e.preventDefault();
   api.addCard(inputTitle, inputLink, buttonSubmitAddCardPopup)
     .then(data => {
-      createCard(data, 'prepend');
+      cardSection.addItem(data, 'prepend');
       popupAddCard.close();
     })
-    .catch(err => `Ошибка ${err}`);
+    .catch(err => console.log(`Ошибка ${err}`));
 });
 
 const popupOpenImg = new PopupWithImage(popupSelector.fullImg);
 
-const popupDeleteCard = new PopupForCard(popupSelector.deleteCard, (e, deleteCard, cardId) => {
+const popupDeleteCard = new ConfirmationPopup(popupSelector.deleteCard, (e, card) => {
   e.preventDefault();
-  api.deleteCard(cardId)
+  api.deleteCard(card.getId())
     .then(() => {
-      deleteCard();
+      card.delete();
       popupDeleteCard.close();
     })
-    .catch(err => `Ошибка ${err}`);
+    .catch(err => console.log(`Ошибка ${err}`));
 });
 
 // Валидаторы форм
@@ -173,7 +166,8 @@ Promise.all([api.getUser(), api.getCards()])
     cardSection = new Section({
       items: cards,
       renderer: (item) => {
-        createCard(item, 'append');
+        const card = new Card(item, cardSelector, popupOpenImg.open, popupDeleteCard.open, toggleLike, user.getUserInfo().id);
+        return card.generateCard();
       }
     }, listElementsSelector);
     cardSection.renderItems();

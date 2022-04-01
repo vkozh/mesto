@@ -3,7 +3,7 @@ import {
     popupFormSelector
 } from '../utils/constants.js';
 
-export default class PopupForCard extends Popup {
+export default class ConfirmationPopup extends Popup {
     constructor(selector, handleFormSubmit) {
         super(selector);
         this._handleFormSubmit = handleFormSubmit;
