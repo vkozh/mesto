@@ -1,31 +1,28 @@
 export default class Api {
     constructor({
         baseUrl,
-        headers,
-        renderLoading
+        headers
     }) {
         this._url = baseUrl;
         this._headers = headers;
-        this._renderLoading = renderLoading;
     }
 
-    _fetch(path, method, bodyObject, button) {
-        if (bodyObject === undefined)
+    _fetch(path, method, bodyObject, form) {
+        if (bodyObject === undefined) {
             return fetch(`${this._url}${path}`, {
                     method: method,
                     headers: this._headers
                 })
                 .then(this._checkResponse);
-        else {
-            const text = button.textContent;
-            this._renderLoading(true, button);
+        } else {
+            form.renderLoading(true);            
             return fetch(`${this._url}${path}`, {
                     method: method,
                     headers: this._headers,
                     body: JSON.stringify(bodyObject)
                 })
                 .then(this._checkResponse)
-                .finally(() => this._renderLoading(false, button, text));
+                .finally(() => form.renderLoading(false));
         }
     }
 
@@ -70,9 +67,9 @@ export default class Api {
         return this._fetch(`/cards/${cardId}/likes`, 'DELETE');
     }
 
-    changeAvatar(avatar, button) {
+    changeAvatar(avatar, form) {
         return this._fetch('/users/me/avatar', 'PATCH', {
             avatar: avatar
-        }, button);
+        }, form);
     }
 }

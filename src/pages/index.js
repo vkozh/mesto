@@ -32,15 +32,14 @@ const api = new Api({
   headers: {
     authorization: TOKEN,
     'Content-Type': 'application/json'
-  },
-  renderLoading: renderLoading
+  }
 });
 
-function renderLoading(isLoading, button, text) {
-  isLoading ?
-    button.textContent = TEXT_LOADING :
-    button.textContent = text;
-}
+// function renderLoading(isLoading, button, text) {
+//   isLoading ?
+//     button.textContent = TEXT_LOADING :
+//     button.textContent = text;
+// }
 
 function toggleLike(card) {
   if (card.isLiked)
@@ -57,12 +56,7 @@ function openEditProfilePopup() {
   //очищаем ошибки
   formValidators[form.editProfile.getAttribute('name')].resetValidation();
   //заполняем поля
-  const {
-    name,
-    job
-  } = user.getUserInfo();
-  nameInput.value = name;
-  jobInput.value = job;
+  popupEditProfile.setInputValues(user.getUserInfo())
   popupEditProfile.open();
 }
 
@@ -83,7 +77,7 @@ const popupEditProfile = new PopupWithForm(popupSelector.editProfile, (e, {
   inputJob
 }) => {
   e.preventDefault();
-  api.editProfile(inputName, inputJob, buttonSubmitEditProfilePopup)
+  api.editProfile(inputName, inputJob, popupEditProfile)
     .then(data => {
       user.setUserInfo(data);
       popupEditProfile.close()
@@ -95,7 +89,7 @@ const popupEditAvatar = new PopupWithForm(popupSelector.editAvatar, (e, {
   inputLink
 }) => {
   e.preventDefault();
-  api.changeAvatar(inputLink, buttonSubmitEditAvatarPopup)
+  api.changeAvatar(inputLink, popupEditAvatar)
     .then(data => {
       user.setUserInfo(data);
       popupEditAvatar.close();
@@ -108,7 +102,7 @@ const popupAddCard = new PopupWithForm(popupSelector.addCard, (e, {
   inputLink
 }) => {
   e.preventDefault();
-  api.addCard(inputTitle, inputLink, buttonSubmitAddCardPopup)
+  api.addCard(inputTitle, inputLink, popupAddCard)
     .then(data => {
       cardSection.addItem(data, 'prepend');
       popupAddCard.close();

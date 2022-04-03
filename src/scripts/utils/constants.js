@@ -30,12 +30,13 @@ export const popupEditProfile = document.querySelector(popupSelector.editProfile
 export const popupAddCard = document.querySelector(popupSelector.addCard);
 export const popupEditAvatar = document.querySelector(popupSelector.editAvatar);
 // Кнопки
+export const buttonSubmitSelector = '.popup__submit-button';
 export const buttonOpenEditProfilePopup = document.querySelector('.profile__edit-button');
 export const buttonOpenEditAvatarPopup = document.querySelector('.profile__edit-avatar-button');
 export const buttonOpenAddCardPopup = document.querySelector('.profile__add-button');
-export const buttonSubmitAddCardPopup = popupAddCard.querySelector('.popup__submit-button');
-export const buttonSubmitEditProfilePopup = popupEditProfile.querySelector('.popup__submit-button');
-export const buttonSubmitEditAvatarPopup = popupEditAvatar.querySelector('.popup__submit-button');
+export const buttonSubmitAddCardPopup = popupAddCard.querySelector(buttonSubmitSelector);
+export const buttonSubmitEditProfilePopup = popupEditProfile.querySelector(buttonSubmitSelector);
+export const buttonSubmitEditAvatarPopup = popupEditAvatar.querySelector(buttonSubmitSelector);
 // Формы
 export const form = {
     editProfile: popupEditProfile.querySelector(popupFormSelector),
@@ -50,9 +51,9 @@ export const linkInput = form.addCard.querySelector(popupInputLinkSelector);
 export const linkAvatarInput = form.editAvatar.querySelector(popupInputLinkAvatarSelector);
 // Начальные настройки
 export const settingsValidation = {
-    formSelector: '.popup__form',
+    formSelector: popupFormSelector,
     inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__submit-button',
+    submitButtonSelector: buttonSubmitSelector,
     inactiveButtonClass: 'popup__submit-button_disabled',
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__input-error_active'
