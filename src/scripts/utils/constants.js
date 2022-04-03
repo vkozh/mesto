@@ -61,3 +61,4 @@ export const settingsValidation = {
 // Текстовые константы
 export const TEXT_LOADING = 'Сохранение...';
 export const TOKEN = 'd0163cf8-cfab-4a34-ac21-cc13d220d7ff';
+export const BASE_URL = 'https://mesto.nomoreparties.co/v1/cohort-39';

@@ -9,13 +9,8 @@ import {
   buttonOpenEditProfilePopup,
   buttonOpenEditAvatarPopup,
   buttonOpenAddCardPopup,
-  buttonSubmitEditProfilePopup,
-  buttonSubmitAddCardPopup,
-  buttonSubmitEditAvatarPopup,
-  nameInput,
-  jobInput,
-  TEXT_LOADING,
-  TOKEN
+  TOKEN,
+  BASE_URL
 
 } from '../scripts/utils/constants.js';
 import FormValidator from '../scripts/components/FormValidator.js';
@@ -28,18 +23,12 @@ import ConfirmationPopup from '../scripts/components/ConfirmationPopup';
 import Api from '../scripts/components/Api';
 
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-39',
+  baseUrl: BASE_URL,
   headers: {
     authorization: TOKEN,
     'Content-Type': 'application/json'
   }
 });
-
-// function renderLoading(isLoading, button, text) {
-//   isLoading ?
-//     button.textContent = TEXT_LOADING :
-//     button.textContent = text;
-// }
 
 function toggleLike(card) {
   if (card.isLiked)
@@ -73,11 +62,11 @@ function openEditAvatarPopup() {
 }
 
 const popupEditProfile = new PopupWithForm(popupSelector.editProfile, (e, {
-  inputName,
-  inputJob
+  name,
+  job
 }) => {
   e.preventDefault();
-  api.editProfile(inputName, inputJob, popupEditProfile)
+  api.editProfile(name, job, popupEditProfile)
     .then(data => {
       user.setUserInfo(data);
       popupEditProfile.close()
@@ -86,10 +75,10 @@ const popupEditProfile = new PopupWithForm(popupSelector.editProfile, (e, {
 });
 
 const popupEditAvatar = new PopupWithForm(popupSelector.editAvatar, (e, {
-  inputLink
+  link
 }) => {
   e.preventDefault();
-  api.changeAvatar(inputLink, popupEditAvatar)
+  api.changeAvatar(link, popupEditAvatar)
     .then(data => {
       user.setUserInfo(data);
       popupEditAvatar.close();
@@ -98,11 +87,11 @@ const popupEditAvatar = new PopupWithForm(popupSelector.editAvatar, (e, {
 })
 
 const popupAddCard = new PopupWithForm(popupSelector.addCard, (e, {
-  inputTitle,
-  inputLink
+  title,
+  link
 }) => {
   e.preventDefault();
-  api.addCard(inputTitle, inputLink, popupAddCard)
+  api.addCard(title, link, popupAddCard)
     .then(data => {
       cardSection.addItem(data, 'prepend');
       popupAddCard.close();
