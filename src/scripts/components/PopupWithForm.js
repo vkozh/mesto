@@ -12,13 +12,13 @@ export default class PopupWithForm extends Popup {
         this._popupForm = this._popup.querySelector(popupFormSelector);
         this._inputs = Array.from(this._popupForm.querySelectorAll('.popup__input'));
         this._button = this._popup.querySelector(buttonSubmitSelector);
+        this._initialButtonText = this._button.textContent;
     }
 
     renderLoading(isLoading) {
-        const text = this._button.textContent;
         isLoading ?
             this._button.textContent = TEXT_LOADING :
-            this._button.textContent = text;
+            this._button.textContent = this._initialButtonText;
     }
 
     _getInputValues() {
